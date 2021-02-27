@@ -88,9 +88,11 @@ html_theme = "alabaster"
 # documentation.
 #
 html_theme_options = {
+    "github_user": "dichen16",
+    "github_repo": "sinfonie",
     "github_button": False,
-    "github_banner": False,
-    "description": "Learn RHELDST stuff with Tom",
+    "github_banner": True,
+    "description": "Mahler: Symphony No.2 Resurrection",
     "extra_nav_links": {
         "Source": "https://github.com/dichen16/sinfonie",
         "Index": "genindex.html",
