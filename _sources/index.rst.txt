@@ -1,5 +1,5 @@
-sinfonie 🎼
-===========
+sinfonie 
+========
 
 Di's practice repository for tech and music. 🎻
 
