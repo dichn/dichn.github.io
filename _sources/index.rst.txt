@@ -1,7 +1,7 @@
-sinfonie
-========
+sinfonie 🎼
+===========
 
-Di's practice repository for tech and music.
+Di's practice repository for tech and music. 🎻
 
 .. toctree::
    :maxdepth: 2
