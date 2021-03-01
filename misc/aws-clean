@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+import click
+import boto3
+import json
+import sys
+
+from boto3.dynamodb.conditions import Key, Attr
+
+
+# @click.option('--table', prompt='The table name of dynamodb', help='The table name of dynamodb')
+
+
+@click.command()
+@click.option("--table", default="dichen-cdn-dev", help="The table name of dynamodb")
+@click.option("--region", default="us-east-1", help="AWS region")
+def main(table, region):
+    click.echo("Operate on dynamodb's table: %s!" % table)
+    # create the ddb client with table
+    ddb_client = boto3.resource("dynamodb", region_name=region).Table(table)
+
+    # FilterExpression setup and scan from the Primary sort key	"from_date"
+    fe = Attr("from_date").eq("2021-02-25 06:11:26.836436+00:00")
+    response = ddb_client.scan(FilterExpression=fe)
+    items = response["Items"]
+
+    if not items:
+        click.echo("💩 I found nothing, I am sorry.")
+        sys.exit()
+
+    # print the matched item
+    click.echo("🥳 Look what I found, my friend 🥳")
+    click.echo(json.dumps(items, indent=4, sort_keys=True))
+
+    if click.confirm("Do you delete the above items?", default=False):
+        for item in items:
+            ddb_client.delete_item(
+                Key={"web_uri": item["web_uri"], "from_date": item["from_date"]}
+            )
+
+    click.echo("🥳 They are all deleted 🥳")
+
+
+if __name__ == "__main__":
+    main()
