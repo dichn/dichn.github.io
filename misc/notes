@@ -1,3 +1,12 @@
 # dynamodb query
 # The query needs the partition key, as it runs on a specific partition only.
 https://stackoverflow.com/questions/60207424/how-to-query-for-greater-than-sort-key-in-dynamodb-with-boto3
+
+
+# delete_item params should include both partition key and sort key
+# Primary key = Partition key + sort key
+https://stackoverflow.com/questions/42757872/the-provided-key-element-does-not-match-the-schema-error-when-getting-an-item
+
+# $ curl https://10.0.151.128/pulp/api/v2/status/ -k -I
+# curl: (7) couldn't connect to host
+# vim /etc/httpd/conf.d/ssl.conf HTTPS port is not opened
