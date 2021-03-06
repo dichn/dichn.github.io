@@ -1,0 +1,6 @@
+---
+# defaults file for eb-major
+root_links:
+- name: /var/lib/docker
+  src: /home/var-lib-docker
+

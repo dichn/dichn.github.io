@@ -1,0 +1,10 @@
+# create ansible role
+ansible-galaxy init eb-major
+
+# create playbook file
+site.yml
+
+# -K for privilege escalation
+ansible-playbook site.yml -K
+
+https://github.com/turkenh/ansible-interactive-tutorial/blob/master/tutorial.sh

@@ -1,0 +1,9 @@
+---
+# tasks file for eb-major
+- name: Make directories for symlinks
+  file:
+    name: "{{ item.src }}"
+    state: directory
+  become: yes
+  with_items: "{{ root_links }}"
+
