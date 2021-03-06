@@ -4,7 +4,7 @@ Career
 🎻 Soft Skills
 --------------
 
-Share summary with teammates right after a meeting or small discuss
+🎻 Share summary with teammates right after a meeting or small discuss
 ......................................................................
 
 This tip came from a dicuss/meeting about improve integration test automation for exodus-gw. we disscuss the difficult part, easy part, and what can be worked on simultaneously.
