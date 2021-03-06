@@ -34,7 +34,7 @@ A good development environment should consider **long-term maintenance** and **e
 A good example of complex dev env is `exodus-gw`_. 
 
 - `localstack`_ container used for fake AWS S3 and DynamoDB
-- Container platform-sidecar is used as the reverse proxy (This proxy performs authentication via mutual TLS, and authorization via a static configuration file)
+- Container platform-sidecar is used as the `reverse proxy`_ (This proxy performs authentication via mutual TLS, and authorization via a static configuration file)
 - PostgreSQL container
 - `dramatiq worker`_
 - `sscg`_ for cert management
@@ -46,3 +46,4 @@ The dev env management includes systemd, `tox`_ for cmd mangement(eg. dramatiq),
 .. _dramatiq worker: https://github.com/release-engineering/exodus-gw/blob/master/scripts/systemd/exodus-gw-worker.service
 .. _tox: https://github.com/release-engineering/exodus-gw/blob/master/tox.ini
 .. _sscg: https://github.com/sgallagher/sscg
+.. _reverse proxy: https://youtu.be/SqqrOspasag
