@@ -20,5 +20,5 @@ main.o: main.cu
 
 #clean Makefile
 clean:
-	rm $(objects)
+	rm $(objects) $(execname)
 #end of Makefile
