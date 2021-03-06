@@ -10,3 +10,6 @@ https://stackoverflow.com/questions/42757872/the-provided-key-element-does-not-m
 # $ curl https://10.0.151.128/pulp/api/v2/status/ -k -I
 # curl: (7) couldn't connect to host
 # vim /etc/httpd/conf.d/ssl.conf HTTPS port is not opened
+
+# jinja2
+linuxtechi.com/configure-use-ansible-jinja2-templates/

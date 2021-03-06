@@ -1,0 +1,11 @@
+---
+- hosts: 127.0.0.1
+  vars: 
+    version_number: '2.4.37'
+    server: 'fedora'
+
+  tasks:
+    - name: A Jinja 2 template example
+      template:
+        src: jinja2_template.j2
+        dest: /home/dichen/draft/file.txt
