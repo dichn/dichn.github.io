@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PATH="/mnt/c/Users/hermitibis/Documents/youtube/**/*(.)"
+
+for file in /mnt/c/Users/hermitibis/Documents/youtube/*; do
+	# echo "$file";
+	filenamenoext=$(/usr/bin/basename "$file" .webm);
+	echo "transfering $filenamenoext"
+	output=$(echo /mnt/c/Users/hermitibis/Documents/youtube_pianotv/$filenamenoext.mp3);
+	/usr/bin/ffmpeg -i "$file" -vn "$output";
+	echo ".... $filenamenoext done!";
+done
+
