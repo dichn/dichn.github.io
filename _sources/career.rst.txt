@@ -4,7 +4,7 @@ Career
 🎻 Soft Skills
 --------------
 
-🎻 Share summary with teammates right after a meeting or small discuss
+🎺 Share summary with teammates right after a meeting or small discuss
 ......................................................................
 
 This tip came from a dicuss/meeting about improve integration test automation for exodus-gw. we disscuss the difficult part, easy part, and what can be worked on simultaneously.
@@ -19,12 +19,12 @@ Summary should be simple, clear and well-format.
     2. write autotests code
     3. access PostgreSQL container(in Pod) in OCP
 
-🎻 Tips for Document
+🎺 Tips for Document
 ....................
 
 - Attach links to JIRA issue, help teammates get more info easily.
 
-🎻 Dev Env and Debug Strategy 
+🎺 Dev Env and Debug Strategy 
 .............................
 
 When learning language or framework, **Fast Feedback** is important.
