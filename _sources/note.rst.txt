@@ -21,6 +21,6 @@ Check the default ``--cacert`` by
     
     strace curl https://example.com --key my.key --cert my.cert|& grep open
 
-In `requests library`_ , this list of trusted CAs can also be specified through the REQUESTS_CA_BUNDLE environment variable. If REQUESTS_CA_BUNDLE is not set, CURL_CA_BUNDLE will be used as fallback.
+In `requests library`_ , this list of trusted CAs can also be specified through the ``REQUESTS_CA_BUNDLE`` environment variable. If ``REQUESTS_CA_BUNDLE`` is not set, ``CURL_CA_BUNDLE`` will be used as fallback.
 
 .. _requests library: https://requests.readthedocs.io/en/master/user/advanced/#ssl-cert-verification
