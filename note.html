@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reference &#8212; sinfonie  documentation</title>
+    <title>Note &#8212; sinfonie  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -15,8 +15,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Note" href="note.html" />
-    <link rel="prev" title="Career" href="career.html" />
+    <link rel="prev" title="Reference" href="ref.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,35 +32,21 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="testing-guide">
-<h2>🎻 Testing Guide<a class="headerlink" href="#testing-guide" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://medium.com/&#64;kentbeck_7670/test-desiderata-94150638a4b3">Test Desiderata</a></p></li>
-<li><p><a class="reference external" href="https://testing.googleblog.com">Google Testing Blog</a></p></li>
-<li><p><a class="reference external" href="https://youtu.be/u5senBJUkPc">All Your Tests Are Terrible - Titus Winters and Hyrum Wright - CppCon 2015</a></p></li>
-<li><p><a class="reference external" href="https://youtu.be/rY45dmzrCu4">A Reflection on Software Testing - Richard Jones - PyConline AU 2020</a></p></li>
-<li><p><a class="reference external" href="https://youtu.be/SBhgteA2szg">Acceptance Testing for Continuous Delivery - Dave Farley - GOTO 2016</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/4904096/whats-the-difference-between-unit-functional-acceptance-and-integration-test">The difference between unit functional acceptance and integration testing</a></p></li>
-</ul>
-<div class="section" id="things-that-hinder-understanding">
-<h3>🎺 Things that hinder understanding<a class="headerlink" href="#things-that-hinder-understanding" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Mutable or otherwise complicated mocks</p></li>
-<li><p>Conditional branches</p></li>
-<li><p>Tests are not focused</p></li>
-</ul>
+  <div class="section" id="note">
+<h1>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="network">
+<h2>🎻 Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mutual-tls">
+<h3>🎺 mutual TLS<a class="headerlink" href="#mutual-tls" title="Permalink to this headline">¶</a></h3>
+<p>mutual TLS means: you (client) verifies the server, and server verifies you</p>
+<p><code class="docutils literal notranslate"><span class="pre">--cert</span></code> and <code class="docutils literal notranslate"><span class="pre">--key</span></code> cause you to pass a certificate to the server, so the server can verify you. That’s one side.</p>
+<p>The server <strong>always</strong> provides you a cert, and <code class="docutils literal notranslate"><span class="pre">--cacert</span></code> controls where you look in order to verify that cert, that’s the other side.</p>
+<p>Client verifying the server is enabled by default, <code class="docutils literal notranslate"><span class="pre">--cacert</span></code> doesn’t enable or disable it, it just changes the default path where it will look for certs to verify the server.</p>
+<p>Check the default <code class="docutils literal notranslate"><span class="pre">--cacert</span></code> by</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>strace curl https://example.com --key my.key --cert my.cert|&amp; grep open
+</pre></div>
 </div>
-<div class="section" id="tips">
-<h3>🎺 Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Fast is better than slow</p></li>
-<li><p>Test <strong>behavior</strong> not <strong>implementation</strong></p></li>
-<li><p>Tests must be isolated from each other</p></li>
-<li><p>Be focused(i.e. tests should not execute too much code)</p></li>
-<li><p>No conditional branches in tests</p></li>
-</ul>
+<p>In <a class="reference external" href="https://requests.readthedocs.io/en/master/user/advanced/#ssl-cert-verification">requests library</a> , this list of trusted CAs can also be specified through the REQUESTS_CA_BUNDLE environment variable. If REQUESTS_CA_BUNDLE is not set, CURL_CA_BUNDLE will be used as fallback.</p>
 </div>
 </div>
 </div>
@@ -90,11 +75,11 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="career.html">Career</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#testing-guide">🎻 Testing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Note</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#network">🎻 Network</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="note.html">Note</a></li>
 </ul>
 
 
@@ -110,8 +95,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="career.html" title="previous chapter">Career</a></li>
-      <li>Next: <a href="note.html" title="next chapter">Note</a></li>
+      <li>Previous: <a href="ref.html" title="previous chapter">Reference</a></li>
   </ul></li>
 </ul>
 </div>
@@ -145,7 +129,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/ref.rst.txt"
+      <a href="_sources/note.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
