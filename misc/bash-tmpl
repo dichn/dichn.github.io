@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Abort script at first error, when a command exits with non-zero status (except in until or while loops, if-tests, list constructs)
+set -e  
+
+# Attempt to use undefined variable outputs error message, and forces an exit
+set -u  
+
+# Similar to verbose mode (-v), but expands commands
+set -x  
+
+# Causes a pipeline to return the exit status of the last command in the pipe that returned a non-zero return value.
+set -o pipefail  

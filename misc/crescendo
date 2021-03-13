@@ -1,0 +1,76 @@
+#! /bin/sh
+# crescendo - A convenient CLI tool for Tom in development, debugging, testing.
+
+function showhelp()
+{
+cat << ENDHELP
+usage: $(basename $0) {options}
+A convenient CLI tool for Tom in development, debugging, testing. :D Be happy
+
+Options:
+  -d, --disable <str>          disable environment variable in current shell 
+  -h, --help                   Something something something help
+
+ENDHELP
+}
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' 
+
+function prompt_foo()
+{
+read -p "Is this a good question (y/n)? " answer
+case ${answer:0:1} in
+    y|Y )
+        echo -e "${GREEN}Yes${NC}"
+    ;;
+    * )
+        # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+        # if you are using the echo command, be sure to use the -e flag to allow backslash escapes
+        echo -e "${RED}No${NC}"
+    ;;
+esac
+}
+
+
+# https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it
+function disable_env_variable()
+{
+for i in $(env | grep ${DISABLE_ENV}); do
+    id="$( cut -d '=' -f 1 <<< "$i" )";
+    echo "found in the current shell process: $id";
+    unset "$id";
+done
+}
+
+if [[ $# -eq 0 ]] ; then
+    echo "oops, forget some option?"
+    echo ""
+    showhelp
+    exit 0
+fi
+
+while [ $# -ge 1 ];do
+    case "$1" in
+    -h|--help)
+        showhelp
+        exit 0
+        ;;
+    -d|--disable)
+        DISABLE_ENV="$2"
+        disable_env_variable
+        shift # past argument
+        shift # past value
+        ;;
+    -p|--prompt)
+        DEFAULT=YES
+        prompt_foo
+        shift # past argument
+        ;;
+    *)  # unknown option
+        showhelp
+        exit 1
+        ;;
+    esac
+done
