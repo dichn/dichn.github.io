@@ -47,6 +47,18 @@
 </pre></div>
 </div>
 <p>In <a class="reference external" href="https://requests.readthedocs.io/en/master/user/advanced/#ssl-cert-verification">requests library</a> , this list of trusted CAs can also be specified through the <code class="docutils literal notranslate"><span class="pre">REQUESTS_CA_BUNDLE</span></code> environment variable. If <code class="docutils literal notranslate"><span class="pre">REQUESTS_CA_BUNDLE</span></code> is not set, <code class="docutils literal notranslate"><span class="pre">CURL_CA_BUNDLE</span></code> will be used as fallback.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># server
+$ sscg --subject-alt-name localhost .
+$ ssl-proxy -cert sscg/service.pem -key sscg/service-key.pem -from 0.0.0.0:7853 -to 127.0.0.1:3000
+2021/03/14 16:27:54 Assuming -to URL is using http://
+2021/03/14 16:27:54 Proxying calls from https://0.0.0.0:7853 (SSL/TLS) to http://127.0.0.1:3000
+
+# client
+$ curl https://localhost:7853/print -d &quot;foo&quot; --key service-key.pem --cert service.pem --cacert ca.crt
+foo
+</pre></div>
+</div>
+<p>The example use <a class="reference external" href="https://github.com/suyashkumar/ssl-proxy">ssl-proxy</a>, <a class="reference external" href="https://github.com/sgallagher/sscg">sscg</a>, <a class="reference external" href="https://github.com/dichen16/mewtwo/blob/master/rs/server/src/main.rs">http server</a>.</p>
 </div>
 </div>
 </div>
