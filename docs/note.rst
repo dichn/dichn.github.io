@@ -18,9 +18,26 @@ Client verifying the server is enabled by default, ``--cacert`` doesn't enable o
 Check the default ``--cacert`` by 
 
 .. code-block:: none
-    
+ 
     strace curl https://example.com --key my.key --cert my.cert|& grep open
 
 In `requests library`_ , this list of trusted CAs can also be specified through the ``REQUESTS_CA_BUNDLE`` environment variable. If ``REQUESTS_CA_BUNDLE`` is not set, ``CURL_CA_BUNDLE`` will be used as fallback.
 
+.. code-block:: none
+ 
+    # server
+    $ sscg --subject-alt-name localhost .
+    $ ssl-proxy -cert sscg/service.pem -key sscg/service-key.pem -from 0.0.0.0:7853 -to 127.0.0.1:3000
+    2021/03/14 16:27:54 Assuming -to URL is using http://
+    2021/03/14 16:27:54 Proxying calls from https://0.0.0.0:7853 (SSL/TLS) to http://127.0.0.1:3000
+    
+    # client
+    $ curl https://localhost:7853/print -d "foo" --key service-key.pem --cert service.pem --cacert ca.crt
+    foo
+
+The example use `ssl-proxy`_, `sscg`_, `http server`_.
+
 .. _requests library: https://requests.readthedocs.io/en/master/user/advanced/#ssl-cert-verification
+.. _ssl-proxy: https://github.com/suyashkumar/ssl-proxy
+.. _sscg: https://github.com/sgallagher/sscg
+.. _http server: https://github.com/dichen16/mewtwo/blob/master/rs/server/src/main.rs
