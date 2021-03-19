@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e  
+
+openssl genrsa -out rootCA.key 4096
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 3650 -out rootCA.crt -config openssl.cnf
+
+openssl genrsa -out pulp-05.key 2048
+openssl req -new -key pulp-05.key -out pulp-05.csr -config openssl.cnf
+openssl x509 -req -in pulp-05.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out pulp-05.crt -days 3650 -sha256
+
+
