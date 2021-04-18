@@ -32,11 +32,17 @@ void input_loop(TargetProgram& prg)
             struct user_regs_struct regs;
             regs = prg.get_user_struct();
 
-            printf("RIP: 0x%016lx ", regs.rip);
+            printf("RIP: 0x%016lx \n", regs.rip);
+            prg.print_short_state();
         } else if (line.rfind("b ", 0) == 0) {
             std::string address = line.erase(0, 4);
             uint64_t addr = stoull(address);
             prg.set_breakpoint(addr);
+        } else if (line == "s") {
+            prg.singlestep();
+            prg.wait();
+
+            prg.print_short_state();
         }
     }
 }
@@ -63,5 +69,5 @@ void target_start(const std::string& target)
 int main()
 {
     std::cout << "look who is coming :D" << std::endl;
-    target_start("/home/dichen/src/sinfonie/draft/a.out");
+    target_start("/home/dichen/src/debugger-talk/test_program/guess");
 }

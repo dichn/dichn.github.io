@@ -36,6 +36,7 @@ public:
     void singlestep();
     void print_short_state();
     void set_breakpoint(uint64_t loc);
+    void cont();
     uint8_t peek_byte_at(uint64_t loc);
     void poke_byte_at(uint64_t loc, uint8_t data);
     int64_t peek_word(int32_t target_pid, uint64_t addr);

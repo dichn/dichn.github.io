@@ -49,10 +49,17 @@ void TargetProgram::singlestep()
 {
     state = ProgramState::Running;
     ptrace(PTRACE_SINGLESTEP, target_pid, NULL, NULL);
+    // print_short_state();
 }
 
 void TargetProgram::print_short_state()
 {
+    struct user_regs_struct regs;
+    regs = get_user_struct();
+    long ins;
+    ins = ptrace(PTRACE_PEEKTEXT, target_pid, regs.rip, NULL);
+    printf("INS: 0x%016lx \n", ins);
+    /* TODO: add using zydis as disassembler*/
 }
 
 void TargetProgram::set_breakpoint(uint64_t loc)
@@ -94,4 +101,9 @@ user_regs_struct TargetProgram::get_user_struct()
     struct user_regs_struct regs;
     ptrace(PTRACE_GETREGS, target_pid, NULL, &regs);
     return regs;
+}
+
+void TargetProgram::cont()
+{
+    ptrace(PTRACE_CONT, target_pid, NULL, NULL);
 }
