@@ -24,3 +24,6 @@ int main(){
 // stap -ve 'probe begin { log("hello world") exit()}'
 //
 // eu-readelf -n logic | grep Build.ID
+//
+// https://github.com/umlaeute/v4l2loopback/issues/394
+// https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/kernel-module-driver-configuration/Working_with_Kernel_Modules/#sect-signing-kernel-modules-for-secure-boot
