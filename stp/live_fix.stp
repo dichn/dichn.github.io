@@ -1,0 +1,22 @@
+global state, reset_counter
+
+probe process("./my_app").statement("main@my_app.c:13"){
+    state = $state
+}
+
+probe process("./my_app").function("next_number").return{
+    if ($return < 0){
+        printf("invalid state detected!\n")
+        printf("About to go from %d to %di\n", state, $return)
+        printf("resettig state to 0\n")
+        $return = 0
+        reset_counter = 1
+    }
+}
+
+probe process("./my_app").function("next_number"){
+    if(reset_counter){
+        $counter = 0
+        reset_counter = 0
+    }
+}
