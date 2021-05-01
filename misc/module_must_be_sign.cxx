@@ -18,4 +18,9 @@ int main(){
 
 
 // g++ module_must_be_sign.cxx -g -o my_app -g3
+// readelf --debug-dump=macro my_app | grep NSS
 // ['-g3' and Get macro value from a compiled binary](https://stackoverflow.com/questions/6030602/get-macro-value-from-a-compiled-binary-with-debug)
+//
+// stap -ve 'probe begin { log("hello world") exit()}'
+//
+// eu-readelf -n logic | grep Build.ID
