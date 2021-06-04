@@ -42,7 +42,17 @@
 <li><p><a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/systemtap_beginners_guide/index">systemtap_beginners_guide</a></p></li>
 <li><p><a class="reference external" href="https://sourceware.org/bugzilla/token.cgi">Sourceware Bugzilla</a></p></li>
 <li><p><a class="reference external" href="https://sourceware.org/systemtap/tapsets/">SystemTap Tapset Reference Manual</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/23928530/how-does-ptrace-work-in-linux">ptrace internals</a></p></li>
+<li><p><a class="reference external" href="https://tldp.org/LDP/lkmpg/2.6/html/">The Linux Kernel Module Programming Guide</a></p></li>
 </ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>The essential idea behind a SystemTap script is to name events, and to give
+them handlers.
+
+When SystemTap runs the script, SystemTap monitors for the event; once the
+event occurs, the Linux kernel then runs the handler as a quick sub-routine
+and then resumes its normal operation.
+</pre></div>
+</div>
 </section>
 </section>
 
