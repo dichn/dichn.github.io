@@ -10,3 +10,10 @@ https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-p
 
 # utils
 https://stackoverflow.com/questions/47618815/how-to-set-a-different-time-zone-for-a-specific-task-in-crontab
+
+# RV
+https://fedoraproject.org/wiki/Architectures/RISC-V/Installing
+https://risc-v-getting-started-guide.readthedocs.io/en/latest/linux-qemu.html
+
+# stap
+https://developers.redhat.com/blog/2021/04/16/using-the-systemtap-dyninst-runtime-environment
