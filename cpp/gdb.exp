@@ -37,3 +37,8 @@ struct derived_probe : public probe {
 (gdb) s
 derived_probe::printsig_nonest (this=0x5c476e0, o=...) at ../systemtap/elaborate.cxx:84
 84	  probe::printsig (o);
+(gdb) n
+probe::printsig (this=0x5c476e0, o=...) at ../systemtap/staptree.cxx:1445
+(gdb) c
+Continuing.
+kernel.function("BTRFS_I@fs/btrfs/btrfs_inode.h:231")
