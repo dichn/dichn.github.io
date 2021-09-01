@@ -1,4 +1,28 @@
 (gdb) set print object on
+(gdb) b main.cxx:180
+Breakpoint 1 at 0x45a436: file ../systemtap/main.cxx, line 180.
+(gdb) r -v -L 'kernel.function("BTRFS_I")'
+Starting program: /home/dichen/stap/install/bin/stap -v -L 'kernel.function("BTRFS_I")'
+Missing separate debuginfos, use: dnf debuginfo-install glibc-2.33-5.fc34.x86_64
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+Pass 1: parsed user script and 506 library scripts using 518248virt/289020res/10208shr/279188data kb, in 560usr/70sys/629real ms.
+
+Breakpoint 1, printscript (s=..., o=...) at ../systemtap/main.cxx:180
+180	                      p->printsig_nonest(sig);
+
+
+(gdb) l
+175	                  // distinguish them with the PC address.
+176	                  if (s.verbose > 0)
+177	                    {
+178	                      // We want to print the probe point signature (without the nested components).
+179	                      std::ostringstream sig;
+180	                      p->printsig_nonest(sig);
+181	
+182	                      if (s.dump_mode == systemtap_session::dump_matched_probes_vars && isatty(STDOUT_FILENO))
+183	                        o << s.colorize(sig.str(), "source");
+184	                      else
 (gdb) ptype /m p
 type = /* real type = dwarf_derived_probe * */
 struct derived_probe : public probe {
@@ -10,3 +34,6 @@ struct derived_probe : public probe {
     unsigned int session_index;
     std::set<derived_probe*> probes_with_affected_conditions;
 } *
+(gdb) s
+derived_probe::printsig_nonest (this=0x5c476e0, o=...) at ../systemtap/elaborate.cxx:84
+84	  probe::printsig (o);
