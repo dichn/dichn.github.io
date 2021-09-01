@@ -1,0 +1,12 @@
+(gdb) set print object on
+(gdb) ptype /m p
+type = /* real type = dwarf_derived_probe * */
+struct derived_probe : public probe {
+    probe *base;
+    probe_point *base_pp;
+    derived_probe_group *group;
+    Dwarf_Addr sdt_semaphore_addr;
+    std::set<std::string> perf_counter_refs;
+    unsigned int session_index;
+    std::set<derived_probe*> probes_with_affected_conditions;
+} *
