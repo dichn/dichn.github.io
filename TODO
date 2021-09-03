@@ -18,3 +18,6 @@ https://risc-v-getting-started-guide.readthedocs.io/en/latest/linux-qemu.html
 # stap
 https://developers.redhat.com/blog/2021/04/16/using-the-systemtap-dyninst-runtime-environment
 https://blog.openresty.com.cn/cn/dynamic-tracing/   (cool doc!)
+
+# DWARF Package File Format
+https://gcc.gnu.org/wiki/DebugFissionDWP
