@@ -17,3 +17,4 @@ readelf.c:2395
 (gdb) r --symbols /home/dichen/elfutils/libdw/libdw.so.1
 
 https://flapenguin.me/elf-dt-hash
+https://stackoverflow.com/questions/15779185/how-to-list-on-the-fly-all-the-functions-symbols-available-in-c-code-on-a-linux
