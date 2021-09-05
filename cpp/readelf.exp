@@ -1,0 +1,17 @@
+(gdb) where
+#0  handle_symtab (shdr=0x7fffffffccf0, scn=0x4a6258, ebl=0x4a0430) at readelf.c:2408
+#1  print_symtab (ebl=ebl@entry=0x4a0430, type=type@entry=2) at readelf.c:2395
+#2  0x0000000000411434 in process_elf_file (dwflmod=dwflmod@entry=0x4a40f0, fd=<optimized out>) at readelf.c:1020
+#3  0x0000000000413d7d in process_dwflmod (dwflmod=0x4a40f0, userdata=<optimized out>, name=<optimized out>, 
+    base=<optimized out>, arg=0x7fffffffd1e8) at readelf.c:792
+#4  0x00007ffff7f62c81 in dwfl_getmodules (dwfl=dwfl@entry=0x4a0020, 
+    callback=callback@entry=0x413d60 <process_dwflmod>, arg=arg@entry=0x7fffffffd1e8, offset=offset@entry=0)
+    at dwfl_getmodules.c:86
+#5  0x000000000040994f in process_file (fd=fd@entry=3, fname=<optimized out>, only_one=only_one@entry=true)
+    at readelf.c:900
+#6  0x0000000000404cee in main (argc=3, argv=0x7fffffffd368) at readelf.c:372
+
+
+readelf.c:1001
+readelf.c:2395
+(gdb) r --symbols /home/dichen/elfutils/libdw/libdw.so.1
