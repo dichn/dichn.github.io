@@ -15,3 +15,5 @@
 readelf.c:1001
 readelf.c:2395
 (gdb) r --symbols /home/dichen/elfutils/libdw/libdw.so.1
+
+https://flapenguin.me/elf-dt-hash
