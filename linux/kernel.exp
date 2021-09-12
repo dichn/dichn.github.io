@@ -1,2 +1,16 @@
 # compile the kernel image
+https://www.kernel.org/
 https://medium.com/@daeseok.youn/prepare-the-environment-for-developing-linux-kernel-with-qemu-c55e37ba8ade
+
+make ARCH=x86_64 x86_64_defconfig 
+make ARCH=x86_64 menuconfig
+make -j8
+
+$ git clone git://git.buildroot.net/buildroot
+$ cd buildroot
+
+qemu-system-x86_64 -s -S -kernel arch/x86/boot/bzImage -hda /dev/zero -append "root=/dev/zero console=ttyS0 nokaslr" -serial stdio -display none
+qemu-system-x86_64 -s -kernel arch/x86/boot/bzImage -boot c -m 2049M -hda /home/dichen/src/buildroot/output/images/rootfs.ext4 -append "root=/dev/sda rw console=ttyS0,115200 acpi=off nokaslr" -serial stdio -display none
+(gdb) target remote localhost:1234
+Remote debugging using localhost:1234
+0x000000000000fff0 in entry_stack_storage ()
