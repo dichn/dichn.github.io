@@ -1,3 +1,4 @@
+https://0xax.gitbooks.io/linux-insides/content/Misc/linux-misc-3.html
 (gdb) where
 #0  handle_symtab (shdr=0x7fffffffccf0, scn=0x4a6258, ebl=0x4a0430) at readelf.c:2408
 #1  print_symtab (ebl=ebl@entry=0x4a0430, type=type@entry=2) at readelf.c:2395
