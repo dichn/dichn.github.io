@@ -1,0 +1,6 @@
+for starting a vnc server
+try avoid using systemd, just use
+[root@crescendo ansible-vnc]# vncserver :4
+
+prepare are
+[root@crescendo ansible-vnc]# vncpasswd
