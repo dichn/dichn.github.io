@@ -18,3 +18,9 @@ Present
 
 - interact with audience by asking question in slides
 
+ChangeLog
+.........
+
+2021-10-29
+
+    * Stage I: 30 Slides (4 segments).
