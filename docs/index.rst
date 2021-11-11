@@ -8,6 +8,7 @@ Di's practice repository for tech and music. 🎻
    :caption: Contents:
 
    career
+   diff
    ref
    stap
    note
