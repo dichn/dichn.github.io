@@ -36,17 +36,63 @@
             
   <section id="difficulty">
 <h1>Difficulty<a class="headerlink" href="#difficulty" title="Permalink to this headline">¶</a></h1>
+<p><strong>never put a link here</strong></p>
 <section id="id1">
 <h2>2021.11<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li><p>GElf_Dyn -&gt; symbols information</p></li>
+<p><strong>Week 1</strong></p>
+<ol class="arabic">
+<li><p>[readelf] GElf_Dyn -&gt; symbols information</p></li>
 <li><p>tclsh with regexp</p></li>
-<li><dl class="simple">
-<dt>curl: (58) could not load PEM client certificate, OpenSSL error error:140AB18E:SSL routines:SSL_CTX_use_certificate:ca md too weak, (no key found, wrong pass phrase, or wrong file format?)</dt><dd><p><strong>solution</strong>: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">update-crypto-policies</span> <span class="pre">--set</span> <span class="pre">DEFAULT:FEDORA32</span></code></p>
+<li><dl>
+<dt>curl: (58) could not load PEM client certificate, OpenSSL error error:140AB18E:SSL routines:SSL_CTX_use_certificate:ca md too weak, (no key found, wrong pass phrase, or wrong file format?)</dt><dd><div class="line-block">
+<div class="line"><strong>solution</strong>: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">update-crypto-policies</span> <span class="pre">--set</span> <span class="pre">DEFAULT:FEDORA32</span></code></div>
+<div class="line"><strong>others</strong>: python-requests is still using openssl library under the hood</div>
+</div>
 </dd>
 </dl>
 </li>
-<li><p>curl -&gt; cloudfront, 503 error with “x-cache: LambdaExecutionError from cloudfront”</p></li>
+<li><dl>
+<dt>curl -&gt; cloudfront, 503 error with “x-cache: LambdaExecutionError from cloudfront”</dt><dd><div class="line-block">
+<div class="line"><strong>culprit</strong>: missing exodus-config in <code class="docutils literal notranslate"><span class="pre">*-config-dev</span></code> table</div>
+<div class="line"><strong>experience</strong>: debugging with check cloudwatch -&gt; log -&gt; log groups</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>CREATE_FAILED: CodePipelineCloudTrail: Resource handler returned message: “Invalid request provided: User: {id} already has 5 trails in us-east-1.</dt><dd><div class="line-block">
+<div class="line"><strong>culprit</strong>: there is a CloudTrail limit (5 cloudtrail per account limit)</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Do we want “frame_unwind.c::(handle_cfi -&gt; expr_eval)” to be externally accessible?</dt><dd><div class="line-block">
+<div class="line"><strong>Q1</strong>: I am little bit nervous in case making some mistakes when interacting with contributors. Not sure whether asking help to contributors is a good idea.</div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
+<p><strong>Week 2</strong></p>
+<ol class="arabic">
+<li><p>Preprocessor-Options: <code class="docutils literal notranslate"><span class="pre">gcc</span> <span class="pre">test.c</span> <span class="pre">-E</span> <span class="pre">-fdirectives-only</span> <span class="pre">|</span> <span class="pre">vim</span> <span class="pre">-</span></code></p></li>
+<li><p>Use dwfl_module_register_names to get the register names</p></li>
+<li><p>[X] Call Frame Information (CFI) Handling</p></li>
+<li><dl>
+<dt>stack/register unwind</dt><dd><div class="line-block">
+<div class="line"><strong>kb</strong>:  get the register values for a given stack frame</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>find a dynamic symbol table via phdrs</dt><dd><div class="line-block">
+<div class="line"><strong>ref</strong>: libdwfl/dwfl_module_getdwarf.c:find_dynsym()</div>
+</div>
+</dd>
+</dl>
+</li>
 </ol>
 </section>
 </section>
