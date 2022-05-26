@@ -52,6 +52,8 @@ The example use `ssl-proxy`_, `sscg`_, `http server`_.
     [ v3_ca ]
     # Include email address in subject alt name: another PKIX recommendation
     subjectAltName=email:move
+    
+By setting verify-full and an sslrootcert, you (as the client) are authenticating the identity of the server.  You need to provide a key only if you want the server also to authenticate you as the client using TLS (and not for example by a username & password).
 
 
 .. _requests library: https://requests.readthedocs.io/en/master/user/advanced/#ssl-cert-verification
