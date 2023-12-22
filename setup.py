@@ -15,7 +15,7 @@ def get_long_description():
 
 
 setup(
-    name="Wöchentlich",
+    name="wochentlich",
     version="0.0.1",
     packages=find_packages(exclude=[""]),
     package_data={},
