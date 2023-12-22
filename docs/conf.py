@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "sinfonie"
-copyright = "2021, Di Chen"
+project = "wochentlich"
+copyright = "2024, Di Chen"
 author = "di.chen16@outlook.com"
 
 # The short X.Y version
@@ -88,11 +88,11 @@ html_theme = "alabaster"
 # documentation.
 #
 html_theme_options = {
-    "github_user": "dichen16",
-    "github_repo": "sinfonie",
+    "github_user": "dichn",
+    "github_repo": "wochentlich",
     "github_button": False,
-    "github_banner": True,
-    "description": "Mahler: Symphony No.2 Resurrection",
+    "github_banner": False,
+    "description": "wochentlich",
     "extra_nav_links": {
         "Source": "https://github.com/dichen16/sinfonie",
         "Index": "genindex.html",

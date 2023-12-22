@@ -1,7 +1,7 @@
-sinfonie 
-========
+Wöchentlich
+===========
 
-Di's practice repository for tech and music. 🎻
+Di's practice repository.
 
 .. toctree::
    :maxdepth: 2

@@ -1,2 +1,2 @@
 # sinfonie
-- [Di's practice repository](https://dichen16.github.io/sinfonie/)
+- [Di's practice repository](https://dichn.github.io/wochentlich/)

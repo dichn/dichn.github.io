@@ -1,0 +1,33 @@
+name: GitHub Pages Update
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install -U pip
+        pip install tox
+
+    - name: Build documentation
+      run: tox -e docs
+
+    - name: Publish documentation
+      if: ${{ success() }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.DOCS_TOKEN }}
+      run: scripts/push-docs

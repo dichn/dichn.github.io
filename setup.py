@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 def get_description():
-    return "Mahler: Symphony No.2 Resurrection"
+    return "Wöchentlich Lernen"
 
 
 def get_long_description():
@@ -15,7 +15,7 @@ def get_long_description():
 
 
 setup(
-    name="sinfonie",
+    name="wochentlich",
     version="0.0.1",
     packages=find_packages(exclude=[""]),
     package_data={},
