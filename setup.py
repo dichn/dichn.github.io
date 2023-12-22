@@ -15,7 +15,7 @@ def get_long_description():
 
 
 setup(
-    name="wochentlich",
+    name="Wöchentlich",
     version="0.0.1",
     packages=find_packages(exclude=[""]),
     package_data={},
@@ -27,5 +27,5 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
     ],
-    python_requires=">=3.5",
+    python_requires=">=3.11",
 )

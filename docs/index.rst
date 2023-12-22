@@ -8,8 +8,3 @@ Di's practice repository.
    :caption: Contents:
 
    career
-   diff
-   ref
-   stap
-   note
-   prep
