@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "wochentlich"
+project = "Wöchentlich"
 copyright = "2024, Di Chen"
 author = "di.chen16@outlook.com"
 
@@ -90,11 +90,11 @@ html_theme = "alabaster"
 html_theme_options = {
     "github_user": "dichn",
     "github_repo": "wochentlich",
-    "github_button": False,
-    "github_banner": False,
-    "description": "wochentlich",
+    "github_button": True,
+    "github_banner": True,
+    "description": "Wöchentlich",
     "extra_nav_links": {
-        "Source": "https://github.com/dichen16/sinfonie",
+        "Source": "https://dichn.github.io/wochentlich/",
         "Index": "genindex.html",
     },
     # default is 940px which seems to be a little too small to display 88 chars code
