@@ -92,7 +92,7 @@ html_theme_options = {
     "github_repo": "wochentlich",
     "github_button": True,
     "github_banner": True,
-    "description": "Wöchentlich",
+    "description": "Von allem Geschriebenen liebe ich nur Das, was Einer mit seinem Blute schreibt.",
     "extra_nav_links": {
         "Source": "https://dichn.github.io/",
         "Index": "genindex.html",
