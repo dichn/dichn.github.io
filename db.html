@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Database &#8212; Wöchentlich  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=833a9154" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Wöchentlich" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="database">
+<h1>Database<a class="headerlink" href="#database" title="Link to this heading">¶</a></h1>
+<p>While I have extensive experience using various databases in team projects, I feel that
+my understanding of them lacks a systematic depth. Frequently, I find myself without a
+clear resolution for certain database-related challenges.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>SQL databases: PostgreSQL, SQLite</p></li>
+<li><p>NoSQL databases: DynamoDB, MongoDB, Redis</p></li>
+</ul>
+</div></blockquote>
+<p>I intend to conduct a retrospective to consolidate and summarize my experiences with databases.</p>
+<p>I believe that databases can be categorized into two major parts: source-related (src-related)
+and deployment-related (deploy-related).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>src-related: how to use databases.</p></li>
+<li><p>deploy-related: how to configure databases and deploy them.</p></li>
+</ul>
+</div></blockquote>
+<p>—</p>
+<section id="foreign-key-violation-src">
+<h2>Foreign key violation (src)<a class="headerlink" href="#foreign-key-violation-src" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><p>A primary key generally focuses on the uniqueness of the table.</p>
+<p>A foreign key is generally used to build a relationship between the two tables.</p>
+</div></blockquote>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-- Enable foreign key constraints
+PRAGMA foreign_keys = ON;
+
+-- Create customers table
+CREATE TABLE customers (
+    customer_id INTEGER PRIMARY KEY,
+    customer_name TEXT NOT NULL
+);
+
+-- Create orders table with a foreign key reference to customers
+CREATE TABLE orders (
+    order_id INTEGER PRIMARY KEY,
+    order_number TEXT NOT NULL,
+    customer_id INTEGER,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Insert data into customers table
+INSERT INTO customers (customer_id, customer_name) VALUES
+    (1, &#39;Customer A&#39;),
+    (2, &#39;Customer B&#39;);
+
+-- Insert data into orders table with a foreign key violation
+INSERT INTO orders (order_id, order_number, customer_id) VALUES
+    (101, &#39;Order 101&#39;, 3);  -- This should now cause a foreign key violation
+</pre></div>
+</div>
+</section>
+<section id="database-migration-with-alembic-src">
+<h2>Database migration with Alembic (src)<a class="headerlink" href="#database-migration-with-alembic-src" title="Link to this heading">¶</a></h2>
+<p>Key aspects of database migration include:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Schema Changes:</p></li>
+</ol>
+<blockquote>
+<div><p>Database migration involves making changes to the structure of the database,
+such as adding or removing tables, altering columns, or creating indexes.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Data Migration:</p></li>
+</ol>
+<blockquote>
+<div><p>Data Transfer: Moving existing data to match the new schema, ensuring that no data is lost during the migration.</p>
+<p>Data Transformation: Modifying data as needed to conform to the new schema or data model.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Versioning</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="thread-safety-issues-src">
+<h2>Thread-safety issues (src)<a class="headerlink" href="#thread-safety-issues-src" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Debug a multi-thread issue with <cite>threading.Lock</cite></p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">logging</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+ <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span>
+<span class="o">+</span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="o">+</span>
+<span class="o">+</span><span class="n">LOCK</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+ <span class="kn">import</span> <span class="nn">requests</span>
+ <span class="kn">from</span> <span class="nn">requests.packages.urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>  <span class="c1"># pylint: disable=import-error</span>
+<span class="o">@@</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span><span class="mi">9</span> <span class="o">+</span><span class="mi">71</span><span class="p">,</span><span class="mi">11</span> <span class="o">@@</span> <span class="k">class</span> <span class="nc">HTTPFetcher</span><span class="p">(</span><span class="n">Fetcher</span><span class="p">):</span>
+             <span class="n">remote_path</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+         <span class="p">)</span>
+         <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="o">-</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
+<span class="o">-</span>            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="o">-</span>                <span class="n">local_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="o">+</span>        <span class="k">with</span> <span class="n">LOCK</span><span class="p">:</span>
+<span class="o">+</span>            <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+<span class="o">+</span>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
+<span class="o">+</span>                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="o">+</span>                    <span class="n">local_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+         <span class="k">return</span> <span class="n">local_path</span>
+
+     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">download_root</span><span class="p">):</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Lazy initialization and thread-safety</p></li>
+</ol>
+<p>What’s lazy initialization?</p>
+<p>Lazy initialization is a design pattern where an object or resource
+is not created until it is actually needed.</p>
+<p>When lazy initialization is used in a multithreaded environment, potential issues
+can arise if multiple threads attempt to access the uninitialized resource
+simultaneously, zum beispiel “race conditions”.</p>
+</section>
+<section id="use-the-lightweight-sqlite-for-unit-test-src">
+<h2>Use the lightweight sqlite for unit test (src)<a class="headerlink" href="#use-the-lightweight-sqlite-for-unit-test-src" title="Link to this heading">¶</a></h2>
+<p>Using SQLite for unit testing is a common and effective approach.
+Set up and tear down the necessary database fixtures for each test. This ensures
+a consistent starting point for your tests and prevents interference between different
+test cases.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sqlite_in_tests</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Any &#39;real&#39; usage of sqlalchemy during this test suite makes use of</span>
+<span class="sd">    a fresh sqlite DB for each test run.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">remove_old_db_files</span><span class="p">()</span>
+    <span class="n">set_env_vars</span><span class="p">()</span>
+    <span class="o">...</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sqlite_broker_in_tests</span><span class="p">(</span><span class="n">sqlite_in_tests</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decouple the sqlite initialization and usage by broker.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">set_broker</span><span class="p">()</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Wöchentlich</a></h1>
+
+
+
+<p class="blurb">Wöchentlich</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=dichn&repo=wochentlich&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#foreign-key-violation-src">Foreign key violation (src)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-migration-with-alembic-src">Database migration with Alembic (src)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thread-safety-issues-src">Thread-safety issues (src)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-the-lightweight-sqlite-for-unit-test-src">Use the lightweight sqlite for unit test (src)</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://dichn.github.io/">Source</a></li>
+    
+    <li class="toctree-l1"><a href="genindex.html">Index</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Wöchentlich</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Di Chen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/sphinx-doc/alabaster">Alabaster 0.7.14</a>
+      
+      |
+      <a href="_sources/db.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/dichn/wochentlich" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

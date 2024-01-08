@@ -7,3 +7,4 @@ Di's practice repository.
    :maxdepth: 2
    :caption: Contents:
 
+   db
